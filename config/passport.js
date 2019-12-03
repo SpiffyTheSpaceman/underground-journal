@@ -1,5 +1,5 @@
 var passport = require('passport');
-var User= require('../models/user');
+var User = require('../models/user');
 
 // passport has different "strategies" for handling Oauth of different kinds. we want to require the google oauth strategy.
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -46,7 +46,7 @@ passport.serializeUser(function(user, done) {
 });
 //deserializeUser will input in the data in the session that was inputted by serializeUser (which in this case is the userId) into the first parameter: id. We will then find the student by that id.
 passport.deserializeUser(function(id, done) {
-   Student.findById(id, function(err, user) {
+   User.findById(id, function(err, user) {
       //As long as there is no err, done will set req.user === user.
       done(err, user);
    })

@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+<section>
+   <aside>
+   </aside>
+   <!-- NOTE: mongoose ._id is an object that has an equals method. we input in the loggedInUser && loggedInUser._id because if loggedInUser._id is checked but there is no loggedInUser, it will throw an error. Thus we want to check first if there is a loggedInUser and then return loggedInUser._id inside the parantheses. -->
+   <% if (user._id.equals(loggedInUser && loggedInUser._id)) { %>
+   <form id="update-profile" action="/users/<%=user._id%>?_method=PUT" method="POST">
+      <input type="text" name="name" placeholder="<%=user.name%>">
+      <label>Full Name</label>
+      <input type="text" name="age" required pattern="\d*" placeholder="<%=user.age%>">
+      <label>Age</label>
+      <select name="gender">
+         <option value="" disabled selected hidden><%=user.gender%></option>
+         <option value="Male">Male</option>
+         <option value="Female">Female</option>
+         <option value="NonBinary">Non-binary</option>
+      </select>
+      <label>Gender</label>
+      <input type="submit" value="Save Changes">
+   </form>
+   <% } else { %>
+      <h1> not equal</h1>
+   <%  } %>
+</section>
+<%- include('../partials/footer') %>

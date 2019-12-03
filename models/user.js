@@ -20,13 +20,18 @@ var userSchema = new Schema({
       type: Boolean,
       default: false,
    },
-   posts: [postSchema],
-   postsLiked: {
-      type: String,
-   },
-   usersFollowed: {
-      type: String,
-   },
+   posts: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+   }],
+   postsLiked: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+   }],
+   usersFollowed: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+   }],
    comments: {
       type: String,
    }
@@ -34,18 +39,6 @@ var userSchema = new Schema({
    timestamps: true
  });
 
- var postSchema = new Schema ({
-   title: {
-      type: String,
-      required: true,
-   },
-   date: {
-      type: Date,
-   },
-   entry: {
-      type: String,
-      required: true,
-   }
- })
+
 
  module.exports = mongoose.model("User", userSchema);

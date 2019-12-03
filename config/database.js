@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 //Can access variables in .env via process.env.variableName
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useUnifiedTopology: true
 });
 
 // database connection event
