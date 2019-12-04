@@ -4,6 +4,7 @@ var User = require('../models/user');
 module.exports = {
   index,
   show,
+  update
 };
 
 function index(req, res) {
@@ -15,10 +16,22 @@ function index(req, res) {
 //Note: even though req.user is set to the logged in user, sometimes the show button will be for people that are not the logged in user. Thus, I still use the findById and use req.params.id to find the user.
 function show(req, res) {
   User.findById(req.params.id, function(err, user) {
-    res.render('users/show', { title: 'Profile',
-    user: user,
-    loggedInUser: req.user });
+    res.render('users/show', { 
+      title: `${user.name}`,
+      user: user,
+      loggedInUser: req.user 
+    });
   });
+}
+
+
+function update(req, res) {
+  User.findByIdAndUpdate(
+     req.params.id, 
+     req.body
+  ).then(
+    res.redirect('/')
+  )
 }
 
 // function show(req, res) {
