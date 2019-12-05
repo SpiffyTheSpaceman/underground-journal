@@ -1,24 +1,58 @@
 var User = require('../models/user');
 var Post = require('../models/post');
  
-module.exports = {
-   new: newPost,
-   create,
-   showPosts
+function dateValue(rawDate) {
+   var newDate = `${rawDate.getFullYear()}-${(rawDate.getMonth() + 1)
+      .toString().padStart(2, "0")}-${rawDate.getDate().toString().padStart(2, "0")}T${rawDate
+        .getHours()
+        .toString()
+        .padStart(2, "0")}:${rawDate
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
+   return newDate;
 };
+
+function translateDate(date) {
+   var rawDate = new Date(date);
+   var newDate = `${rawDate.getFullYear()}-${(rawDate.getMonth() + 1)
+      .toString().padStart(2, "0")}-${rawDate.getDate().toString().padStart(2, "0")}T${rawDate
+        .getHours()
+        .toString()
+        .padStart(2, "0")}:${rawDate
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
+   return newDate;
+}
+
+module.exports = {
+   index,
+   new: newPost,
+   edit,
+   create,
+   update,
+   delete: deletePost,
+   showPosts,
+};
+
+function index(req, res) {
+   Post.find({})
+   .populate('owner')
+   .populate('comments.owner')
+   .exec(function(err, posts) {
+      res.render('posts/index', {
+         title: 'Underground Journal',
+         loggedInUser: req.user,
+         posts
+      })
+   })
+}
 
 function newPost(req, res) {
    var newPost = new Post();
    var currentDate = newPost.date;
-   currentDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
-   .toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2, "0")}T${currentDate
-     .getHours()
-     .toString()
-     .padStart(2, "0")}:${currentDate
-     .getMinutes()
-     .toString()
-     .padStart(2, "0")}`
-   console.log(currentDate);
+   currentDate = dateValue(currentDate);
    res.render('posts/new', {
       title: 'New Journal Entry',
       loggedInUser: req.user,
@@ -26,13 +60,51 @@ function newPost(req, res) {
    });
 };
 
+function edit(req, res) {
+   Post.findById(req.params.id, function(err, post) {
+      res.render('posts/edit', {
+         post,
+         loggedInUser: req.user,
+         title: 'Edit Journal'
+      })
+   })
+}
+
+function update(req, res) {
+   Post.findByIdAndUpdate(
+      req.params.id, 
+      req.body
+   ).then(
+     res.redirect(`/users/${req.user._id}/posts`)
+   )
+}
+
 function create(req, res) {
    req.body.owner = req.user._id;
-   Post.create(req.body, function(err, performer) {
-      res.redirect(`/users/${req.user._id}/posts`);
-   });
+   req.body.dateValue = req.body.date;
+   Post.create(req.body)
+   .then(res.redirect(`/users/${req.user._id}/posts`))
 };
 
+function deletePost(req, res) {
+   Post.deleteOne({"_id": req.params.id}, function(err, post) {
+      res.redirect(`/users/${req.user._id}/posts`);
+    });
+}
+
+
+//Note that populate is another promise, so we need to wait for it to finish before we can render the page.
 function showPosts(req, res) {
-   
+   User.findById(req.params.id, function(err, user) {
+      Post.find({owner: user._id})
+      .populate('comments.owner') 
+      .exec(function(err, posts) {
+         res.render('posts/showPosts', {
+            title: 'My Entries',
+            user,
+            posts,
+            loggedInUser: req.user
+         })
+      })
+   })
 }

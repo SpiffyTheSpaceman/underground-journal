@@ -1,6 +1,34 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var commentSchema = new Schema ({
+   index: {
+      type: Number,
+      required: true,
+   },
+   owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+   },
+   date: {
+      type: Date,
+      default: function() {
+         let newDate = new Date();
+         return newDate;
+      }
+   },
+   entry: {
+      type: String,
+      required: true,
+   },
+   likes: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+   }],
+});
+
+
+
 var postSchema = new Schema ({
    owner: {
       type: Schema.Types.ObjectId,
@@ -17,6 +45,9 @@ var postSchema = new Schema ({
          return newDate;
       }
    },
+   dateValue: {
+      type: String
+   },
    entry: {
       type: String,
       required: true,
@@ -29,7 +60,11 @@ var postSchema = new Schema ({
    nameHidden: {
       type: Boolean,
       default: true,
-   }
+   },
+   comments: {
+      type: [commentSchema],
+      ref: 'User'
+   },
 
  })
 

@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+
+<section>
+      <div>
+         <% if (post.owner.equals(loggedInUser && loggedInUser._id)) { %>
+         <form class="create-post" action="/posts/<%= post._id %>?_method=PUT" method="POST">
+            <input type="text" name="title" value="<%= post.title %>">
+            <label>Title</label>
+            <input type="datetime-local" name="date" value="<%= post.dateValue %>">
+            <label>Date</label>
+            <textarea name="entry"><%= post.entry %></textarea>
+            <label>Entry</label>
+            <input type="submit" value="Update Journal">
+         </form>
+         <% } else { %>
+         <h1>Please Log In</h1>
+         <% } %>
+      </div>
+</section>
+
+<%- include('../partials/footer') %>

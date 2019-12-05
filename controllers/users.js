@@ -1,5 +1,4 @@
 var User = require('../models/user');
-// var Performer = require('../models/performer');
 
 module.exports = {
   index,
@@ -30,7 +29,7 @@ function update(req, res) {
      req.params.id, 
      req.body
   ).then(
-    res.redirect('/')
+    res.redirect(`/users/${req.params.id}`)
   )
 }
 

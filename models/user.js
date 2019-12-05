@@ -20,10 +20,6 @@ var userSchema = new Schema({
       type: Boolean,
       default: false,
    },
-   posts: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Post'
-   }],
    postsLiked: [{
       type: Schema.Types.ObjectId,
       ref: 'Post'
