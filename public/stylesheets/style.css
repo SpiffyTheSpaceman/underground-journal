@@ -34,7 +34,7 @@ body {
 
 a {
   color: var(--green);
-  display: block;
+  display: inline-block;
   text-decoration: underline;
   transition: transform 0.3s ease;
 }
