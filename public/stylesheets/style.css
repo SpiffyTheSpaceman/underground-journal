@@ -45,9 +45,9 @@ a {
   justify-content: flex-start;
   align-items: flex-start;
   padding-left: 25px;
-  position: fixed;
-  top: 64px;
-  z-index: 2;
+  /* position: fixed; */
+  /* top: 64px; */
+  /* z-index: 2; */
   background: linear-gradient(70deg, black 0%, transparent 100%);
 }
 .side-menu > div {
