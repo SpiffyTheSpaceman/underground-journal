@@ -1,8 +1,166 @@
+:root {
+  --line-spacing: 25px;
+  --green: #26a69a;
+}
+
 body {
   padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+.background-image, .background-color {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 64px;
+}
+
+.background-color {
+  background-image: linear-gradient(to bottom, #292E49, #536976, #BBD2C5);
+  z-index: -26;
+}
+
+.background-image {
+  background-image: url("../images/asianguy.jpg");
+  filter: grayscale(0.9);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -25;
+}
+
+.nav-wrapper {
+  background: linear-gradient(to bottom, black 0%, transparent 100%);
+}
 
 a {
-  color: #00B7FF;
+  color: var(--green);
+  display: block;
+  text-decoration: underline;
+  transition: transform 0.3s ease;
+}
+
+.side-menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 25px;
+  position: fixed;
+  top: 64px;
+  z-index: 2;
+  background: linear-gradient(70deg, black 0%, transparent 100%);
+}
+.side-menu > div {
+  padding: 10px;
+}
+
+a:hover {
+  color: white;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+a:active {
+  transform: scale(0.95);
+  background-color: white;
+}
+
+.nav-wrapper > a {
+  margin-left: 15px;
+  transform: none;
+}
+
+/* styling paper */
+.paper {
+  width: 600px;
+  height: 700px;
+  position: relative;
+  margin: 20px auto;
+  margin-top: 0;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #36454f;
+  box-shadow: 0px 0px 5px 0px #888;
+  border-radius: 20px;
+}
+
+/* styling red vertical line */
+.paper::before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  background-color: black;
+}
+
+/* styling blue horizontal lines, the middle number will determine the spacing */
+.pattern {
+  height: 100%;
+  background-image: repeating-linear-gradient(#36454f 0px, #36454f 24px, black 25px);
+}
+
+/* styling text content */
+.content {
+  padding-top: 0px;
+  padding-left: 56px;
+  padding-right: 16px;
+  line-height: 25px;
+  font-size: 19px;
+  letter-spacing: 1px;
+  word-spacing: 5px;
+}
+  
+.create-post > input, .create-post > textarea {
+  color: #dcdcdc;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-bottom: none;
+}
+
+.create-post > textarea {
+  max-height: 100%;
+  display: block;
+  resize: none;
+}
+
+.create-post > textarea:focus {
+  outline: none;
+  border: 1px solid #26a69a;
+  box-shadow: 0 1px 0 0 #26a69a;
+}
+
+article > h1 {
+  font-size: 30px;
+  transform: translateY(-10px);
+  margin: 0;
+  /* margin-top: 40px; */
+}
+
+article > h2 {
+  font-size: 15px;
+  margin: 0;
+  font-style: italic;
+}
+
+article > p {
+  font-size: 15px;
+  margin: 0;
+  margin-top: calc(var(--line-spacing) + 5px);
+  line-height: var(--line-spacing);
+}
+
+.my-button {
+  color: black;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.create-post > .my-button {
+  color: black;
+  border-radius: 10px;
+  padding: 5px 10px 5px 10px;
+  margin-top: 25px;
 }

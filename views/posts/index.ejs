@@ -2,25 +2,29 @@
 
 <section>
    <% posts.forEach( (post) => { %>
-      <div>
+      <div class="paper">
+            <div class="pattern">
+               <div class="content">
          <article class="posts">
             <h1><%= post.title %></h1>
-            <h2><%= post.date %> </h2>
+            <h2><%= post.dateTranslated %> </h2>
             <p><%= post.entry %> </p>
             <a href='/users/<%=post.owner._id%>/posts'><%= post.owner.name %></a>
             <% if (post.owner.equals(loggedInUser && loggedInUser._id)) { %>
                <a href='/posts/<%=post._id%>/edit'>Edit</a>
                <form class="delete" action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-                  <button type="submit">X</button>
+                  <button class="my-button" type="submit">X</button>
                </form>
             <% } %>
          </article>
       </div>
+   </div>
+   </div>
       <div>
          <form class="comment" action="/posts/<%= post._id %>/comments" method="POST">
             <textarea name="entry"></textarea>
             <label>Entry</label>
-            <input type="submit" value="Comment">
+            <input class="my-button" type="submit" value="Comment">
          </form>
       </div>
       <% post.comments.forEach( comment => { %>
@@ -29,7 +33,7 @@
             <form class="comment" action="/posts/<%= post._id %>/comments/<%= comment.index %>?_method=PUT" method="POST">
                <textarea name="entry"><%=comment.entry%></textarea>
                <label>Entry</label>
-               <input type="submit" value="Update Comment">
+               <input class="my-button" type="submit" value="Update Comment">
             </form>
          <% } else { %>
             <a href='/users/<%=comment.owner._id%>/posts'><%= comment.owner.name %> </a>
@@ -37,7 +41,7 @@
          <% } %>
          <% if (comment.owner.equals(loggedInUser && loggedInUser._id) || post.owner.equals(loggedInUser && loggedInUser._id)) { %>
          <form class="delete" action="/posts/<%= post._id %>/comments/<%= comment.index %>?_method=DELETE" method="POST">
-            <button type="submit">Delete</button>
+            <button class="my-button" type="submit">Delete</button>
          </form>
          <% } %>
       <% }) %>

@@ -14,15 +14,10 @@ function dateValue(rawDate) {
 };
 
 function translateDate(date) {
+   var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+   var weeks = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
    var rawDate = new Date(date);
-   var newDate = `${rawDate.getFullYear()}-${(rawDate.getMonth() + 1)
-      .toString().padStart(2, "0")}-${rawDate.getDate().toString().padStart(2, "0")}T${rawDate
-        .getHours()
-        .toString()
-        .padStart(2, "0")}:${rawDate
-        .getMinutes()
-        .toString()
-        .padStart(2, "0")}`;
+   var newDate = `${weeks[rawDate.getDay()].substr(0, 3)}, ${months[rawDate.getMonth()]} ${rawDate.getDate()}, ${rawDate.getFullYear()} at ${rawDate.getHours()}:${rawDate.getMinutes()}`;
    return newDate;
 }
 
@@ -71,6 +66,8 @@ function edit(req, res) {
 }
 
 function update(req, res) {
+   req.body.dateValue = req.body.date;
+   req.body.dateTranslated = translateDate(req.body.dateValue);
    Post.findByIdAndUpdate(
       req.params.id, 
       req.body
@@ -82,6 +79,7 @@ function update(req, res) {
 function create(req, res) {
    req.body.owner = req.user._id;
    req.body.dateValue = req.body.date;
+   req.body.dateTranslated = translateDate(req.body.dateValue);
    Post.create(req.body)
    .then(res.redirect(`/users/${req.user._id}/posts`))
 };

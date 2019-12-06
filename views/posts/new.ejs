@@ -3,6 +3,9 @@
 <section>
    <div>
       <% if (loggedInUser) { %>
+      <div class="paper">
+            <div class="pattern">
+               <div class="content">
       <form id="create-post" action="/posts" method="POST">
          <input type="text" name="title" placeholder="Title">
          <label>Title</label>
@@ -10,8 +13,11 @@
          <label>Date</label>
          <textarea name="entry" placeholder="Entry"></textarea>
          <label>Entry</label>
-         <input type="submit" value="Save Journal">
+         <input class="my-button" type="submit" value="Save Journal">
       </form>
+   </div>
+</div>
+</div>
       <% } else { %>
          <h1> Please Log In </h1>
       <%  } %>

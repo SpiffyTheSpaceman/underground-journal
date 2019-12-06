@@ -2,11 +2,12 @@
 
 <section>
    <% posts.forEach(post => { %>
-      <div>
-
+         <div class="paper">
+            <div class="pattern">
+               <div class="content">
          <article class="posts">
             <h1><%= post.title %></h1>
-            <h2><%= post.date %> </h2>
+            <h2><%= post.dateTranslated %> </h2>
             <p><%= post.entry %> </p>
             <a href='/users/<%=user._id%>/posts'><%= user.name %></a>
          <% if (user._id.equals(loggedInUser && loggedInUser._id)) { %>
@@ -17,6 +18,8 @@
          <% } %>
          </article>
       </div>
+   </div>
+   </div>
       <div>
          <form class="comment" action="/posts/<%= post._id %>/comments" method="POST">
             <textarea name="entry"></textarea>

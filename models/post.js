@@ -17,6 +17,9 @@ var commentSchema = new Schema ({
          return newDate;
       }
    },
+   dateTranslated: {
+      type: String,
+   },
    entry: {
       type: String,
       required: true,
@@ -47,6 +50,9 @@ var postSchema = new Schema ({
    },
    dateValue: {
       type: String
+   },
+   dateTranslated: {
+      type: String,
    },
    entry: {
       type: String,
