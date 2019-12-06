@@ -15,7 +15,8 @@ function dateValue(rawDate) {
 
 module.exports = {
    create,
-   delete: deleteComment
+   delete: deleteComment,
+   update
 };
 
 function create(req, res) {
@@ -36,6 +37,15 @@ function deleteComment(req, res) {
       post.comments.forEach((comment, index) => {
          comment.index = index;
       });
+      post.save(function(err) {
+         res.redirect(`/posts`);
+       });
+   });
+}
+
+function update(req, res) {
+   Post.findById((req.params.id), function(err, post) {
+      Object.assign(post.comments[req.params.index], req.body);
       post.save(function(err) {
          res.redirect(`/posts`);
        });

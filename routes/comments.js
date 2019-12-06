@@ -11,5 +11,6 @@ module.exports = router;
 
 //POST for a new journal post.
 router.post('/posts/:id/comments', isLoggedIn, commentsCtrl.create);
+router.put('/posts/:id/comments/:index', isLoggedIn, commentsCtrl.update);
 router.delete('/posts/:id/comments/:index', isLoggedIn, commentsCtrl.delete);
 // router.put()
