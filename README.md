@@ -19,7 +19,7 @@
 
 ## Getting Started
 Go to this link to start using the website
-[Underground Journal](http://https://underground-journal.herokuapp.com/posts "Underground Journal")
+[Underground Journal](https://underground-journal.herokuapp.com/posts "Underground Journal")
 
 ## Next Steps
 1. Improve Styling and UI
